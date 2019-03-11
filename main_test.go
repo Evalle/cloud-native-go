@@ -15,9 +15,9 @@ func TestDefaultPort(t *testing.T) {
 }
 
 func TestCustomPort(t *testing.T) {
-	os.Setenv("PORT", "9090")
+	os.Setenv("PORT", "9999")
 	got := port()
-	want := "9090"
+	want := "9999"
 
 	if want != got {
 		t.Errorf("got %s, but want %s", got, want)
