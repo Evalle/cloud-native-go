@@ -4,11 +4,15 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	"github.com/evalle/cloud-native-go/api"
 )
 
 func main() {
 	http.HandleFunc("/", index)
-	http.HandleFunc("/api/echo", echo)
+	http.HandleFunc("/api/echo", api.EchoHandleFunc)
+	http.HandleFunc("/api/books", api.BooksHandleFunc)
+
 	http.ListenAndServe(":"+port(), nil)
 }
 
@@ -19,17 +23,9 @@ func port() string {
 	}
 
 	return port
-
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	fmt.Println("Hello, Cloud Native Go")
-}
-
-func echo(w http.ResponseWriter, r *http.Request) {
-	message := r.URL.Query()["message"][0]
-
-	w.Header().Add("Content-Type", "text/plain")
-	fmt.Println(w, message)
 }
